@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redirect Box</title>
+  <style>
+    body {
+      background-color: #f4f4f4;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+    .box {
+      background: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    input {
+      width: 250px;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      outline: none;
+    }
+    button {
+      padding: 10px 15px;
+      margin-left: 8px;
+      font-size: 16px;
+      border: none;
+      border-radius: 6px;
+      background-color: #0078ff;
+      color: white;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #005ec2;
+    }
+    .links {
+      margin-top: 20px;
+      text-align: center;
+    }
+    .links a {
+      color: #0078ff;
+      text-decoration: none;
+      margin: 0 10px;
+    }
+    .links a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    <h2>Enter a website:</h2>
+    <input type="text" id="urlInput" placeholder="example.com or https://example.com">
+    <button onclick="goToSite()">Go</button>
+  </div>
+
+  <div class="links">
+    <a href="https://www.google.com">Quick link to Google</a> |
+    <a href="https://mail.google.com/mail/logout?hl=en">Sign out of Google</a>
+  </div>
+
+  <script>
+    function goToSite() {
+      let url = document.getElementById('urlInput').value.trim();
+      if (!url) return;
+      if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
+      }
+      window.location.href = url;
+    }
+  </script>
+</body>
+</html>
