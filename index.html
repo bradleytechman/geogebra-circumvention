@@ -20,6 +20,7 @@
       border-radius: 12px;
       box-shadow: 0 0 10px rgba(0,0,0,0.1);
       text-align: center;
+      z-index: 2;
     }
     input {
       width: 250px;
@@ -31,7 +32,7 @@
     }
     button {
       padding: 10px 15px;
-      margin-left: 8px;
+      margin: 5px;
       font-size: 16px;
       border: none;
       border-radius: 6px;
@@ -54,31 +55,81 @@
     .links a:hover {
       text-decoration: underline;
     }
+    #iframeContainer {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 20px;
+      width: 90%;
+      height: 70vh;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+    }
+    #fullscreenBtn {
+      margin-top: 8px;
+      background-color: #444;
+    }
+    #fullscreenBtn:hover {
+      background-color: #222;
+    }
   </style>
 </head>
 <body>
+
+  <div id="iframeContainer">
+    <iframe id="previewFrame"></iframe>
+    <button id="fullscreenBtn" onclick="toggleFullscreen()">Fullscreen</button>
+  </div>
+
   <div class="box">
     <h2>Enter a website:</h2>
     <input type="text" id="urlInput" placeholder="example.com or https://example.com">
     <button onclick="goToSite()">Go</button>
+    <button onclick="toggleIframe()">Toggle iFrame Mode</button>
   </div>
 
   <div class="links">
     <a href="https://www.google.com">Quick link to Google</a> |
-    <a href="https://mail.google.com/mail/logout?hl=en">Sign out of Google</a>
-    <a href="https://github.com/bradleytechman/geogebra-circumvention">Source</a>
-    <a href="https://github.com">GitHub</a>
-    <a href="artclassv4-eight.vercel.app/search.html">Art Class</a>
+    <a href="https://mail.google.com/mail/logout?hl=en">Sign out of Google</a> |
+    <a href="https://github.com/bradleytechman/geogebra-circumvention">Source</a> |
+    <a href="https://github.com">GitHub</a> |
+    <a href="https://artclassv4-eight.vercel.app/search.html">Art Class</a>
   </div>
 
   <script>
+    let iframeMode = false;
+
     function goToSite() {
       let url = document.getElementById('urlInput').value.trim();
       if (!url) return;
       if (!url.startsWith('http://') && !url.startsWith('https://')) {
         url = 'https://' + url;
       }
-      window.location.href = url;
+
+      if (iframeMode) {
+        document.getElementById('previewFrame').src = url;
+      } else {
+        window.location.href = url;
+      }
+    }
+
+    function toggleIframe() {
+      iframeMode = !iframeMode;
+      const iframeContainer = document.getElementById('iframeContainer');
+      iframeContainer.style.display = iframeMode ? 'flex' : 'none';
+    }
+
+    function toggleFullscreen() {
+      const iframe = document.getElementById('previewFrame');
+      if (!document.fullscreenElement) {
+        iframe.requestFullscreen().catch(err => console.log(err));
+      } else {
+        document.exitFullscreen();
+      }
     }
   </script>
 </body>
