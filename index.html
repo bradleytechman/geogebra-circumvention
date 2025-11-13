@@ -62,19 +62,16 @@
       margin-bottom: 20px;
       width: 90%;
       height: 70vh;
+      resize: vertical;
+      overflow: auto;
     }
     iframe {
       width: 100%;
       height: 100%;
       border: 1px solid #ccc;
       border-radius: 10px;
-    }
-    #fullscreenBtn {
-      margin-top: 8px;
-      background-color: #444;
-    }
-    #fullscreenBtn:hover {
-      background-color: #222;
+      resize: both;
+      overflow: auto;
     }
   </style>
 </head>
@@ -82,7 +79,6 @@
 
   <div id="iframeContainer">
     <iframe id="previewFrame"></iframe>
-    <button id="fullscreenBtn" onclick="toggleFullscreen()">Fullscreen</button>
   </div>
 
   <div class="box">
@@ -121,15 +117,6 @@
       iframeMode = !iframeMode;
       const iframeContainer = document.getElementById('iframeContainer');
       iframeContainer.style.display = iframeMode ? 'flex' : 'none';
-    }
-
-    function toggleFullscreen() {
-      const iframe = document.getElementById('previewFrame');
-      if (!document.fullscreenElement) {
-        iframe.requestFullscreen().catch(err => console.log(err));
-      } else {
-        document.exitFullscreen();
-      }
     }
   </script>
 </body>
