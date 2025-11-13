@@ -31,9 +31,9 @@
       outline: none;
     }
     button {
-      padding: 10px 15px;
+      padding: 8px 12px;
       margin: 5px;
-      font-size: 16px;
+      font-size: 15px;
       border: none;
       border-radius: 6px;
       background-color: #0078ff;
@@ -73,19 +73,33 @@
       resize: both;
       overflow: auto;
     }
+    .iframe-controls {
+      margin-bottom: 8px;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
 
   <div id="iframeContainer">
+    <div class="iframe-controls">
+      <button onclick="iframeBack()">IFrame Back</button>
+      <button onclick="iframeForward()">IFrame Forward</button>
+      <button onclick="iframeReload()">Reload IFrame</button>
+    </div>
     <iframe id="previewFrame"></iframe>
   </div>
 
   <div class="box">
     <h2>Enter a website:</h2>
     <input type="text" id="urlInput" placeholder="example.com or https://example.com">
+    <br>
     <button onclick="goToSite()">Go</button>
     <button onclick="toggleIframe()">Toggle iFrame Mode</button>
+    <br>
+    <button onclick="pageBack()">Page Back</button>
+    <button onclick="pageForward()">Page Forward</button>
+    <button onclick="pageReload()">Reload Page</button>
   </div>
 
   <div class="links">
@@ -117,6 +131,25 @@
       iframeMode = !iframeMode;
       const iframeContainer = document.getElementById('iframeContainer');
       iframeContainer.style.display = iframeMode ? 'flex' : 'none';
+    }
+
+    // Page navigation controls
+    function pageBack() { history.back(); }
+    function pageForward() { history.forward(); }
+    function pageReload() { location.reload(); }
+
+    // Iframe navigation controls
+    function iframeReload() {
+      const iframe = document.getElementById('previewFrame');
+      iframe.contentWindow.location.reload();
+    }
+    function iframeBack() {
+      const iframe = document.getElementById('previewFrame');
+      try { iframe.contentWindow.history.back(); } catch(e) {}
+    }
+    function iframeForward() {
+      const iframe = document.getElementById('previewFrame');
+      try { iframe.contentWindow.history.forward(); } catch(e) {}
     }
   </script>
 </body>
