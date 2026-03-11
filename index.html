@@ -162,10 +162,50 @@
   }
 
   function breakout() {
-  const iframe = document.getElementById('previewFrame');
-  if (iframe && iframe.src) {
-    window.top.location.href = iframe.src;
-  }
+  const iframe = document.getElementById("previewFrame");
+  if (!iframe) return;
+
+  let url = iframe.src;
+
+  // Try to get the real URL if possible
+  try {
+    if (iframe.contentWindow && iframe.contentWindow.location.href) {
+      url = iframe.contentWindow.location.href;
+    }
+  } catch (e) {}
+
+  // Attempt 1: top navigation
+  try {
+    window.top.location.href = url;
+    return;
+  } catch (e) {}
+
+  // Attempt 2: replace top location
+  try {
+    window.top.location.replace(url);
+    return;
+  } catch (e) {}
+
+  // Attempt 3: open in same tab
+  try {
+    window.open(url, "_self");
+    return;
+  } catch (e) {}
+
+  // Attempt 4: normal navigation
+  try {
+    window.location.href = url;
+    return;
+  } catch (e) {}
+
+  // Attempt 5: simulated link click
+  try {
+    const a = document.createElement("a");
+    a.href = url;
+    a.target = "_top";
+    document.body.appendChild(a);
+    a.click();
+  } catch (e) {}
 }
 </script>
 </body>
