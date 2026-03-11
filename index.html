@@ -162,11 +162,11 @@
   }
 
   function breakout() {
-    const iframe = document.getElementById('previewFrame');
-    if (iframe && iframe.src) {
-      window.location.href = iframe.src;
-    }
+  const iframe = document.getElementById('previewFrame');
+  if (iframe && iframe.src) {
+    window.top.location.href = iframe.src;
   }
+}
 </script>
 </body>
 </html>
