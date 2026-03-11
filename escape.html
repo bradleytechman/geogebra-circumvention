@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Escape</title>
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial, sans-serif;
+  background:#111;
+}
+button{
+  font-size:28px;
+  padding:20px 40px;
+  border:none;
+  border-radius:12px;
+  background:#ff3b3b;
+  color:white;
+  cursor:pointer;
+}
+button:hover{
+  background:#cc2e2e;
+}
+</style>
+</head>
+<body>
+
+<button onclick="escapePage()">Escape</button>
+
+<script>
+function escapePage() {
+  const url = "https://geogebra-circumvention.vercel.app"; 
+
+  try { window.top.location.href = url; return; } catch(e) {}
+  try { window.top.location.replace(url); return; } catch(e) {}
+  try { window.open(url, "_top"); return; } catch(e) {}
+  try { window.open(url, "_self"); return; } catch(e) {}
+
+  window.location.href = url;
+}
+</script>
+
+</body>
+</html>
