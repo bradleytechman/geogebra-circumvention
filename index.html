@@ -99,6 +99,8 @@
     <button onclick="goBack()">Back</button>
     <button onclick="goForward()">Forward</button>
     <button onclick="pageReload()">Reload Page</button>
+    <button onclick="goBack()">Back</button>
+    <button onclick="breakout()">Open iFrame Outside</button>
   </div>
 
   <div class="links">
@@ -109,51 +111,62 @@
     <a href="https://artclassv4-eight.vercel.app/search.html">Art Class</a>
   </div>
 
-  <script>
-    let iframeMode = false;
+<script>
+  let iframeMode = false;
 
-    function goToSite() {
-      let url = document.getElementById('urlInput').value.trim();
-      if (!url) return;
-      if (!url.startsWith('http://') && !url.startsWith('https://')) {
-        url = 'https://' + url;
-      }
+  function goToSite() {
+    let url = document.getElementById('urlInput').value.trim();
+    if (!url) return;
 
-      if (iframeMode) {
-        document.getElementById('previewFrame').src = url;
-      } else {
-        window.location.href = url;
-      }
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+      url = 'https://' + url;
     }
 
-    function toggleIframe() {
-      iframeMode = !iframeMode;
-      const iframeContainer = document.getElementById('iframeContainer');
-      iframeContainer.style.display = iframeMode ? 'flex' : 'none';
+    if (iframeMode) {
+      document.getElementById('previewFrame').src = url;
+    } else {
+      window.location.href = url;
     }
+  }
 
-    function pageReload() {
-      location.reload();
-    }
+  function toggleIframe() {
+    iframeMode = !iframeMode;
+    const iframeContainer = document.getElementById('iframeContainer');
+    iframeContainer.style.display = iframeMode ? 'flex' : 'none';
+  }
 
-    // Smart Back/Forward — works for page or iframe mode
-    function goBack() {
-      if (iframeMode) {
-        const iframe = document.getElementById('previewFrame');
-        try { iframe.contentWindow.history.back(); } catch(e) {}
-      } else {
-        history.back();
-      }
-    }
+  function pageReload() {
+    location.reload();
+  }
 
-    function goForward() {
-      if (iframeMode) {
-        const iframe = document.getElementById('previewFrame');
-        try { iframe.contentWindow.history.forward(); } catch(e) {}
-      } else {
-        history.forward();
-      }
+  function goBack() {
+    if (iframeMode) {
+      const iframe = document.getElementById('previewFrame');
+      try {
+        iframe.contentWindow.history.back();
+      } catch (e) {}
+    } else {
+      history.back();
     }
-  </script>
+  }
+
+  function goForward() {
+    if (iframeMode) {
+      const iframe = document.getElementById('previewFrame');
+      try {
+        iframe.contentWindow.history.forward();
+      } catch (e) {}
+    } else {
+      history.forward();
+    }
+  }
+
+  function breakout() {
+    const iframe = document.getElementById('previewFrame');
+    if (iframe && iframe.src) {
+      window.location.href = iframe.src;
+    }
+  }
+</script>
 </body>
 </html>
