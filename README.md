@@ -3,3 +3,5 @@ little HTML page to open a website on the page you are currently on, to be used 
 https://bradleytechman.github.io/geogebra-circumvention/
 If it won't load, open this one instead.
 https://geogebra-circumvention.vercel.app/ (vercel mirror)
+
+also https://geogebra-circumvention.vercel.app/escape.html for the other method
